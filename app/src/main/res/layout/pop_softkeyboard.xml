@@ -11,7 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
-
+    <com.example.user.softkeyboard.CharsVirtualKeyboardView
+        android:id="@+id/vkb_char_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
     <com.example.user.softkeyboard.AbcVirtualKeyboardView
         android:id="@+id/vkb_abc_view"
         android:layout_width="match_parent"

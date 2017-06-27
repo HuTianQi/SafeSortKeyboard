@@ -14,13 +14,13 @@ import java.util.Map;
 /**
  * 九宫格键盘适配器
  */
-public class KeyBoardAdapter extends BaseAdapter {
+public class NumKeyBoardAdapter extends BaseAdapter {
 
 
     private Context mContext;
     private ArrayList<Map<String, String>> valueList;
 
-    public KeyBoardAdapter(Context mContext, ArrayList<Map<String, String>> valueList) {
+    public NumKeyBoardAdapter(Context mContext, ArrayList<Map<String, String>> valueList) {
         this.mContext = mContext;
         this.valueList = valueList;
     }

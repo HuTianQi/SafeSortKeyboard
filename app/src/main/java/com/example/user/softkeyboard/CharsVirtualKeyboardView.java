@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 数字虚拟键盘
  */
-public class NumVirtualKeyboardView extends RelativeLayout {
+public class CharsVirtualKeyboardView extends RelativeLayout {
 
     private final TextView abc_view;
     private final ImageView img_back;
@@ -37,16 +37,16 @@ public class NumVirtualKeyboardView extends RelativeLayout {
     private Animation enterAnim;
     private Animation exitAnim;
 
-    public NumVirtualKeyboardView(Context context) {
+    public CharsVirtualKeyboardView(Context context) {
         this(context, null);
     }
 
-    public NumVirtualKeyboardView(Context context, AttributeSet attrs) {
+    public CharsVirtualKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         this.context = context;
 
-        View view = View.inflate(context, R.layout.layout_virtual_keyboard_num, null);
+        View view = View.inflate(context, R.layout.layout_virtual_keyboard_chars, null);
 
         valueList = new ArrayList<>();
 
@@ -76,17 +76,14 @@ public class NumVirtualKeyboardView extends RelativeLayout {
     private void initValueList() {
 
         // 初始化按钮上应该显示的数字
-        for (int i = 1; i < 13; i++) {
-            Map<String, String> map = new HashMap<>();
-            if (i < 10) {
-                map.put("name", String.valueOf(i));
-            } else if (i == 10) {
-                map.put("name", ".");
-            } else if (i == 11) {
-                map.put("name", String.valueOf(0));
-            } else if (i == 12) {
-                map.put("name", "");
+        for (int i = 33; i <= 127; i++) {
+
+            if ((i>=48 && i<=57)||(i>=65 && i<=90)||(i>=97 && i<=121)){
+                continue;
             }
+
+            Map<String, String> map = new HashMap<>();
+            map.put("name", Character.toString((char) i));
             valueList.add(map);
         }
     }
@@ -95,18 +92,14 @@ public class NumVirtualKeyboardView extends RelativeLayout {
 
     private void setupView() {
 
-        NumKeyBoardAdapter numKeyBoardAdapter = new NumKeyBoardAdapter(context, valueList);
-        gridView.setAdapter(numKeyBoardAdapter);
+        CharKeyBoardAdapter charKeyBoardAdapter = new CharKeyBoardAdapter(context, valueList);
+        gridView.setAdapter(charKeyBoardAdapter);
     }
 
     public void initView(EditText editText) {
-
         textAmount = editText;
         enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in);
         exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out);
-
-
-
         gridView.setOnItemClickListener(onItemClickListener);
     }
 
@@ -132,7 +125,6 @@ public class NumVirtualKeyboardView extends RelativeLayout {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-            if (position < 11 && position != 9) {    //点击0~9按钮
 
                 String amount = textAmount.getText().toString().trim();
                 amount = amount + valueList.get(position).get("name");
@@ -141,30 +133,7 @@ public class NumVirtualKeyboardView extends RelativeLayout {
 
                 Editable ea = textAmount.getText();
                 textAmount.setSelection(ea.length());
-            } else {
 
-                if (position == 9) {      //点击.
-                    String amount = textAmount.getText().toString().trim();
-                    if (!amount.contains(".")) {
-                        amount = amount + valueList.get(position).get("name");
-                        textAmount.setText(amount);
-
-                        Editable ea = textAmount.getText();
-                        textAmount.setSelection(ea.length());
-                    }
-                }
-
-                if (position == 11) {      //点击退格键
-                    String amount = textAmount.getText().toString().trim();
-                    if (amount.length() > 0) {
-                        amount = amount.substring(0, amount.length() - 1);
-                        textAmount.setText(amount);
-
-                        Editable ea = textAmount.getText();
-                        textAmount.setSelection(ea.length());
-                    }
-                }
-            }
         }
     };
 }

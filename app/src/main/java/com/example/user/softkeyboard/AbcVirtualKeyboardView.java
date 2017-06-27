@@ -1,34 +1,28 @@
 package com.example.user.softkeyboard;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 数字虚拟键盘
  */
-public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnClickListener {
+public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTouchListener {
 
     private final TextView num_view;
     private final ImageView img_back;
+    private final TextView char_view;
     Context context;
 
     private RelativeLayout layoutBack;
@@ -37,6 +31,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
     private Animation exitAnim ;
     private HashMap<Integer,AbcBean> viewMap=new HashMap<Integer,AbcBean>();
     private Boolean isUpCase=false;
+
 
     public AbcVirtualKeyboardView(Context context) {
         this(context, null);
@@ -52,6 +47,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
 
         layoutBack = (RelativeLayout) view.findViewById(R.id.layoutBack);
         num_view = (TextView) view.findViewById(R.id.num_view);
+        char_view = (TextView) view.findViewById(R.id.char_view);
         img_back= (ImageView) view.findViewById(R.id.img_back);
 
         setupView(view);
@@ -61,7 +57,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
 
     private void setupView(View view) {
 
-        view.findViewById(R.id.imgDelete).setOnClickListener(this);
+        view.findViewById(R.id.imgDelete).setOnTouchListener(this);
 
         viewMap.put(R.id.btn_a,new AbcBean(R.id.btn_a,view,"a"));
         viewMap.put(R.id.btn_b,new AbcBean(R.id.btn_b,view,"b"));
@@ -92,13 +88,36 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
 
         for (Map.Entry<Integer, AbcBean> entry : viewMap.entrySet()) {
             AbcBean abcBean = entry.getValue();
-            abcBean.getmView().setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AbcBean bean = (AbcBean) v.getTag();
-                        editWords(bean);
+//            abcBean.getmView().setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        AbcBean bean = (AbcBean) v.getTag();
+//                        editWords(bean);
+//                    }
+//                });
+            abcBean.getmView().setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int action = event.getAction();
+                    AbcBean bean = (AbcBean) v.getTag();
+                    switch (action){
+                        case  MotionEvent.ACTION_DOWN:
+                            down_time = System.currentTimeMillis();
+                            editWords(bean);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            long time=System.currentTimeMillis()-down_time;
+                            if (down_time!=0
+                                    && (time>800)){
+                                //停顿800毫秒后,
+                                editWords(bean);
+                            }
+                            break;
+
                     }
-                });
+                    return true;
+                }
+            });
             }
     }
 
@@ -116,6 +135,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
     }
 
     public TextView getNum_view(){return num_view;}
+    public TextView getChar_view(){return char_view;}
 
 
 
@@ -147,21 +167,43 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements View.OnCli
     }
 
 
+
+
+    private long down_time = 0;
     @Override
-    public void onClick(View v) {
+    public boolean onTouch(View v, MotionEvent event) {
         switch (v.getId()){
             case R.id.imgDelete:
-                String amount = textAmount.getText().toString().trim();
-                if (amount.length() > 0) {
-                    amount = amount.substring(0, amount.length() - 1);
-                    textAmount.setText(amount);
+                int action = event.getAction();
+                switch (action){
+                    case  MotionEvent.ACTION_DOWN:
+                        down_time = System.currentTimeMillis();
+                        deleteOneChar();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        long time=System.currentTimeMillis()-down_time;
+                        if (down_time!=0
+                                && (time>800)){
+                            //停顿800毫秒后,
+                            deleteOneChar();
 
-                    Editable ea = textAmount.getText();
-                    textAmount.setSelection(ea.length());
+                        }
+                        break;
+
                 }
                 break;
 
         }
+        return true;
+    }
 
+    private void deleteOneChar(){
+        String amount = textAmount.getText().toString().trim();
+        if (amount.length() > 0) {
+            amount = amount.substring(0, amount.length() - 1);
+            textAmount.setText(amount);
+            Editable ea = textAmount.getText();
+            textAmount.setSelection(ea.length());
+        }
     }
 }

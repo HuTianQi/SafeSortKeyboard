@@ -35,6 +35,7 @@ public class PopwinSoftkeyboard extends PopupWindow  {
     private final View popView;
     private NumVirtualKeyboardView vkb_num_view;
     private AbcVirtualKeyboardView vkb_abc_view;
+    private CharsVirtualKeyboardView vkb_char_view;
 
     public static synchronized PopwinSoftkeyboard getInstance(Activity context) {
         if (instance == null) {
@@ -68,41 +69,9 @@ public class PopwinSoftkeyboard extends PopupWindow  {
         setOutsideTouchable(true);
         update();
 
-        //初始化数字键盘
-        vkb_num_view = (NumVirtualKeyboardView) popView.findViewById(R.id.vkb_num_view);
-        vkb_num_view.initView(textAmount);
-        vkb_num_view.getImgBack().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        vkb_num_view.getAbc_view().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vkb_num_view.disMiss();
-                vkb_abc_view.show();
-
-            }
-        });
-
-        //初始化字母键盘
-        vkb_abc_view = (AbcVirtualKeyboardView) popView.findViewById(R.id.vkb_abc_view);
-        vkb_abc_view.initView(textAmount);
-        vkb_abc_view.getImgBack().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        vkb_abc_view.getNum_view().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vkb_abc_view.disMiss();
-                vkb_num_view.show();
-            }
-        });
     }
+
+
 
     public void initEditText(EditText et){
 
@@ -125,11 +94,12 @@ public class PopwinSoftkeyboard extends PopupWindow  {
             }
         }
 
+        initKeyboard();
+
         textAmount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 PopwinSoftkeyboard.getInstance(mContext).show(textAmount);
-
                 return false;
             }
         });
@@ -147,7 +117,67 @@ public class PopwinSoftkeyboard extends PopupWindow  {
 
 
     }
+    private void initKeyboard() {
+        //初始化数字键盘
+        vkb_num_view = (NumVirtualKeyboardView) popView.findViewById(R.id.vkb_num_view);
+        vkb_num_view.initView(textAmount);
+        vkb_num_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_num_view.getAbc_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_num_view.disMiss();
+                vkb_abc_view.show();
 
+            }
+        });
+
+        //初始化特殊字符键盘
+        vkb_char_view = (CharsVirtualKeyboardView) popView.findViewById(R.id.vkb_char_view);
+        vkb_char_view.initView(textAmount);
+        vkb_char_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_char_view.getAbc_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_char_view.disMiss();
+                vkb_abc_view.show();
+
+            }
+        });
+
+        //初始化字母键盘
+        vkb_abc_view = (AbcVirtualKeyboardView) popView.findViewById(R.id.vkb_abc_view);
+        vkb_abc_view.initView(textAmount);
+        vkb_abc_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_abc_view.getNum_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_abc_view.disMiss();
+                vkb_num_view.show();
+            }
+        });
+        vkb_abc_view.getChar_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_abc_view.disMiss();
+                vkb_char_view.show();
+            }
+        });
+    }
 
 
 
