@@ -3,12 +3,39 @@
 
     <item
         is-multidex="false"
+        jar="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6e3578f92f7462d1a935a1d36173e3bdd1234976">
+        <dex dex="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.2.0_0376eb353aa0fc77252da7ea39e3e52b6958e0c8.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/user/android-sdk/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/23.2.0/support-annotations-23.2.0.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.2"
         sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
         <dex dex="/home/user/Downloads/SoftKeyboard/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.0_bd27b34486499118704ef6c96bc9fa61eadb5cff.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.0_bda4d18466565c5c8023ed8d280b219add398da5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="292a9fa091757208efa65e77eef63088247e51f3">
+        <dex dex="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.2.0_e9fbea7bdbbfe072dc634b5fd9d4c9463d30331b.jar" />
     </item>
     <item
         is-multidex="false"
@@ -30,6 +57,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8c108c22c99e794eff255bb34d2a461200c4cbb0">
+        <dex dex="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.2.0_fe2068a0072fb6adaed9cb0284244c9c1162d0e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/user/Downloads/SoftKeyboard/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -45,6 +81,15 @@
         revision="23.0.2"
         sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
         <dex dex="/home/user/Downloads/SoftKeyboard/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.0_2a4d0e7929ef48fc038c4182004c3b5bf60e4945.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="/home/user/soft_keyboard/SafeSortKeyboard/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.0_92410ecc43543af0ae1e145635f3f065fad3d527.jar" />
     </item>
     <item
         is-multidex="false"
