@@ -1,6 +1,8 @@
 package com.example.user.softkeyboard;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.InputType;
@@ -48,21 +50,28 @@ public class PopwinSoftkeyboard extends PopupWindow  {
         initPopWindow();
         setContentView(popView);
     }
-
+    public  int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
     private void initPopWindow() {
         Display display = mContext.getWindowManager().getDefaultDisplay();
         DisplayMetrics dm = new DisplayMetrics();
         display.getMetrics(dm);
 
         setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+        setHeight(dip2px(mContext,260f));
+//        setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
 
         //设置动画
         setAnimationStyle(R.style.popwin_anim_style);
 
-        setBackgroundDrawable(new ColorDrawable(0));
-        setFocusable(false);
-        //设置popwindow如果点击外面区域，便关闭。
+//        setBackgroundDrawable(new ColorDrawable(0));
+
+        //设置popwindow如果点击外面区域，便关闭
+        setTouchable(true);
+        setFocusable(true);
+        setBackgroundDrawable(new BitmapDrawable());
         setOutsideTouchable(true);
         update();
 
@@ -102,6 +111,14 @@ public class PopwinSoftkeyboard extends PopupWindow  {
             @Override
             public void onClick(View v) {
                 show(v);
+            }
+        });
+        textAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    show(v);
+                }
             }
         });
         return this;
