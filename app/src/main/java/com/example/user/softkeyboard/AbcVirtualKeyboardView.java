@@ -23,6 +23,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
     private final TextView num_view;
     private final ImageView img_back;
     private final TextView char_view;
+    private final ImageView upcase_view;
     Context context;
 
     private RelativeLayout layoutBack;
@@ -48,6 +49,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
         layoutBack = (RelativeLayout) view.findViewById(R.id.layoutBack);
         num_view = (TextView) view.findViewById(R.id.num_view);
         char_view = (TextView) view.findViewById(R.id.char_view);
+        upcase_view = (ImageView) view.findViewById(R.id.upcase_view);
         img_back= (ImageView) view.findViewById(R.id.img_back);
 
         setupView(view);
@@ -58,6 +60,18 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
     private void setupView(View view) {
 
         view.findViewById(R.id.imgDelete).setOnTouchListener(this);
+
+        upcase_view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upcase_view.setSelected(!upcase_view.isSelected());
+                if (upcase_view.isSelected()){
+                    upCaseMode();
+                }else {
+                    lowerCaseMode();
+                }
+            }
+        });
 
         viewMap.put(R.id.btn_a,new AbcBean(R.id.btn_a,view,"a"));
         viewMap.put(R.id.btn_b,new AbcBean(R.id.btn_b,view,"b"));
@@ -88,37 +102,42 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
 
         for (Map.Entry<Integer, AbcBean> entry : viewMap.entrySet()) {
             AbcBean abcBean = entry.getValue();
-//            abcBean.getmView().setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        AbcBean bean = (AbcBean) v.getTag();
-//                        editWords(bean);
-//                    }
-//                });
             abcBean.getmView().setOnTouchListener(new OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     int action = event.getAction();
                     AbcBean bean = (AbcBean) v.getTag();
-                    switch (action){
-                        case  MotionEvent.ACTION_DOWN:
-                            down_time = System.currentTimeMillis();
+                    if (action== MotionEvent.ACTION_DOWN){
+                        down_time = System.currentTimeMillis();
+                        editWords(bean);
+                    }else {
+                        long time=System.currentTimeMillis()-down_time;
+                        if (down_time!=0
+                                && (time>800)){
+                            //停顿800毫秒后,
                             editWords(bean);
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            long time=System.currentTimeMillis()-down_time;
-                            if (down_time!=0
-                                    && (time>800)){
-                                //停顿800毫秒后,
-                                editWords(bean);
-                            }
-                            break;
-
+                        }
                     }
                     return true;
                 }
             });
             }
+    }
+
+    private void lowerCaseMode() {
+        isUpCase=false;
+        for (Map.Entry<Integer, AbcBean> entry : viewMap.entrySet()) {
+            AbcBean abcBean = entry.getValue();
+            ((TextView)abcBean.getmView()).setText(abcBean.getmValue());
+        }
+    }
+
+    private void upCaseMode() {
+        isUpCase=true;
+        for (Map.Entry<Integer, AbcBean> entry : viewMap.entrySet()) {
+            AbcBean abcBean = entry.getValue();
+            ((TextView)abcBean.getmView()).setText(abcBean.getmValue().toUpperCase());
+        }
     }
 
     private void editWords(AbcBean bean) {
@@ -175,24 +194,19 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
         switch (v.getId()){
             case R.id.imgDelete:
                 int action = event.getAction();
-                switch (action){
-                    case  MotionEvent.ACTION_DOWN:
+                if (action==MotionEvent.ACTION_DOWN){
                         down_time = System.currentTimeMillis();
                         deleteOneChar();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        long time=System.currentTimeMillis()-down_time;
-                        if (down_time!=0
-                                && (time>800)){
-                            //停顿800毫秒后,
-                            deleteOneChar();
+                }else{
+                    long time=System.currentTimeMillis()-down_time;
+                    if (down_time!=0
+                            && (time>800)){
+                        //停顿800毫秒后,
+                        deleteOneChar();
 
-                        }
-                        break;
-
+                    }
                 }
-                break;
-
+               break;
         }
         return true;
     }

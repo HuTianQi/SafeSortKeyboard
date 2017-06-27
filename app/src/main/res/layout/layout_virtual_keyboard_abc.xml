@@ -16,6 +16,15 @@
         android:layout_height="35dp"
         android:background="#f5f5f5"
         >
+        <ImageView
+            android:id="@+id/upcase_view"
+            android:layout_marginLeft="@dimen/abc_view_margin_left"
+            android:background="@drawable/gray_btn_selector"
+            android:src="@mipmap/ic_upcase"
+            android:gravity="center"
+            android:padding="3dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/img_back"

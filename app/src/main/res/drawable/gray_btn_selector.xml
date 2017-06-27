@@ -4,6 +4,12 @@
             <solid android:color="#C0C4C7" />
         </shape>
     </item>
+
+    <item android:state_enabled="true" android:state_selected="true">
+        <shape>
+            <solid android:color="#7ebac9" />
+        </shape>
+    </item>
     <item android:state_enabled="true" android:state_pressed="false">
         <shape>
             <solid android:color="#F5F5F5" />
