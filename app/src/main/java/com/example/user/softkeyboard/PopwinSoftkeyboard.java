@@ -29,7 +29,6 @@ import java.lang.reflect.Method;
 
 public class PopwinSoftkeyboard extends PopupWindow  {
 
-    private static PopwinSoftkeyboard instance;
     private Activity mContext;
     private EditText textAmount;
     private final View popView;
@@ -37,11 +36,9 @@ public class PopwinSoftkeyboard extends PopupWindow  {
     private AbcVirtualKeyboardView vkb_abc_view;
     private CharsVirtualKeyboardView vkb_char_view;
 
-    public static synchronized PopwinSoftkeyboard getInstance(Activity context) {
-        if (instance == null) {
-            instance = new PopwinSoftkeyboard(context);
-        }
-        return instance;
+    public static PopwinSoftkeyboard getInstance(Activity context) {
+
+        return new PopwinSoftkeyboard(context);
     }
 
 
@@ -73,9 +70,10 @@ public class PopwinSoftkeyboard extends PopupWindow  {
 
 
 
-    public void initEditText(EditText et){
+    public PopwinSoftkeyboard initEditText(EditText et,Boolean isPwd){
 
         this.textAmount = et;
+
         // 设置不调用系统键盘
         if (android.os.Build.VERSION.SDK_INT <= 10) {
             textAmount.setInputType(InputType.TYPE_NULL);
@@ -93,16 +91,20 @@ public class PopwinSoftkeyboard extends PopupWindow  {
                 e.printStackTrace();
             }
         }
-
+        if (isPwd){
+            textAmount.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }else {
+            textAmount.setInputType(InputType.TYPE_NULL);
+        }
         initKeyboard();
 
-        textAmount.setOnTouchListener(new View.OnTouchListener() {
+        textAmount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                PopwinSoftkeyboard.getInstance(mContext).show(textAmount);
-                return false;
+            public void onClick(View v) {
+                show(v);
             }
         });
+        return this;
     }
 
     private void show(View parent) {

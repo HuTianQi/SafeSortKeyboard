@@ -2,6 +2,7 @@ package com.example.user.softkeyboard;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
