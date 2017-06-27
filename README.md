@@ -3,4 +3,4 @@
 
 ![字母键盘](https://github.com/ZhangYuShui/SafeSortKeyboard/blob/master/shot1.png)
 
-![数字键盘](https://github.com/ZhangYuShui/SafeSortKeyboard/blob/master/shot２.png)
+![数字键盘](https://github.com/ZhangYuShui/SafeSortKeyboard/blob/master/shot2.png)
