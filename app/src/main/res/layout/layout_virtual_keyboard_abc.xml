@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_above="@+id/layoutBack"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="1dp"
+        android:background="#bdbdbd" />
+    <RelativeLayout
+        android:id="@+id/layoutBack"
+        android:layout_above="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#f5f5f5"
+        >
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/keyboard_back_img" />
+        <TextView
+            android:id="@+id/num_view"
+            android:background="@drawable/gray_btn_selector"
+            android:text="123"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_above="@+id/abc_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#bdbdbd" />
+    <!-- 输入键盘 -->
+    <LinearLayout
+        android:id="@+id/abc_keyboard"
+        android:background="#e0e0e0"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/btn_q"
+                android:text="q"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_w"
+                android:text="w"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_e"
+                android:text="e"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_r"
+                android:text="r"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_t"
+                android:text="t"
+                style="@style/abc_words"
+            />
+            <TextView
+                android:id="@+id/btn_y"
+                android:text="y"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_u"
+                android:text="u"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_i"
+                android:text="i"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_o"
+                android:text="o"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_p"
+                android:text="p"
+                android:layout_marginRight="@dimen/abc_view_margin_left"
+                style="@style/abc_words"
+                />
+        </LinearLayout>
+        <LinearLayout
+           android:padding="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/btn_a"
+                android:text="a"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_s"
+                android:text="s"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_d"
+                android:text="d"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_f"
+                android:text="f"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_g"
+                android:text="g"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_h"
+                android:text="h"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_j"
+                android:text="j"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_k"
+                android:text="k"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_l"
+                android:text="l"
+                style="@style/abc_words"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btn_z"
+                android:text="z"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_x"
+                android:text="x"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_c"
+                android:text="c"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_v"
+                android:text="v"
+                style="@style/abc_words" />
+            <TextView
+                android:id="@+id/btn_b"
+                android:text="b"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_n"
+                android:text="n"
+                style="@style/abc_words"
+                />
+            <TextView
+                android:id="@+id/btn_m"
+                android:text="m"
+                style="@style/abc_words"
+                />
+            <RelativeLayout
+                android:id="@+id/imgDelete"
+                android:background="@drawable/selector_abc_item"
+                android:layout_marginLeft="@dimen/abc_view_margin_left"
+                android:layout_marginRight="@dimen/abc_view_margin_left"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/keyboard_delete_img" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</RelativeLayout>
