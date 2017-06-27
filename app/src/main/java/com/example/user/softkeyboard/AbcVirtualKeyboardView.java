@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 数字虚拟键盘
  */
-public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTouchListener {
+public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnClickListener {
 
     private final TextView num_view;
     private final ImageView img_back;
@@ -60,7 +60,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
 
     private void setupView(View view) {
 
-        view.findViewById(R.id.imgDelete).setOnTouchListener(this);
+        view.findViewById(R.id.imgDelete).setOnClickListener(this);
 
         upcase_view.setOnClickListener(new OnClickListener() {
             @Override
@@ -103,25 +103,32 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
 
         for (Map.Entry<Integer, AbcBean> entry : viewMap.entrySet()) {
             AbcBean abcBean = entry.getValue();
-            abcBean.getmView().setOnTouchListener(new OnTouchListener() {
+            abcBean.getmView().setOnClickListener(new OnClickListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    int action = event.getAction();
+                public void onClick(View v) {
                     AbcBean bean = (AbcBean) v.getTag();
-                    if (action== MotionEvent.ACTION_DOWN){
-                        down_time = System.currentTimeMillis();
-                        editWords(bean);
-                    }else {
-                        long time=System.currentTimeMillis()-down_time;
-                        if (down_time!=0
-                                && (time>800)){
-                            //停顿800毫秒后,
-                            editWords(bean);
-                        }
-                    }
-                    return true;
+                    editWords(bean);
                 }
             });
+//            abcBean.getmView().setOnTouchListener(new OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    int action = event.getAction();
+//                    AbcBean bean = (AbcBean) v.getTag();
+//                    if (action== MotionEvent.ACTION_DOWN){
+//                        down_time = System.currentTimeMillis();
+//                        editWords(bean);
+//                    }else {
+//                        long time=System.currentTimeMillis()-down_time;
+//                        if (down_time!=0
+//                                && (time>800)){
+//                            //停顿800毫秒后,
+//                            editWords(bean);
+//                        }
+//                    }
+//                    return true;
+//                }
+//            });
             }
     }
 
@@ -149,26 +156,17 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
        }
     }
 
-
     public ImageView getImgBack() {
         return img_back;
     }
-
     public TextView getNum_view(){return num_view;}
     public TextView getChar_view(){return char_view;}
 
 
-
-
-
     public void initView(EditText editText) {
-
         textAmount = editText;
-
         enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in);
         exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out);
-
-
     }
 
     public void disMiss(){
@@ -186,31 +184,28 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
 
     }
 
-
-
-
-    private long down_time = 0;
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (v.getId()){
-            case R.id.imgDelete:
-                int action = event.getAction();
-                if (action==MotionEvent.ACTION_DOWN){
-                        down_time = System.currentTimeMillis();
-                        deleteOneChar();
-                }else{
-                    long time=System.currentTimeMillis()-down_time;
-                    if (down_time!=0
-                            && (time>800)){
-                        //停顿800毫秒后,
-                        deleteOneChar();
-
-                    }
-                }
-               break;
-        }
-        return true;
-    }
+//    private long down_time = 0;
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//        switch (v.getId()){
+//            case R.id.imgDelete:
+//                int action = event.getAction();
+//                if (action==MotionEvent.ACTION_DOWN){
+//                        down_time = System.currentTimeMillis();
+//                        deleteOneChar();
+//                }else{
+//                    long time=System.currentTimeMillis()-down_time;
+//                    if (down_time!=0
+//                            && (time>800)){
+//                        //停顿800毫秒后,
+//                        deleteOneChar();
+//
+//                    }
+//                }
+//               break;
+//        }
+//        return true;
+//    }
 
     private void deleteOneChar(){
         String amount = textAmount.getText().toString().trim();
@@ -220,5 +215,15 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements  View.OnTo
             Editable ea = textAmount.getText();
             textAmount.setSelection(ea.length());
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.imgDelete:
+                deleteOneChar();
+                break;
+        }
+
     }
 }
