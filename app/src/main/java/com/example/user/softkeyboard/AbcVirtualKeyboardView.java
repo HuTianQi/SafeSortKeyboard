@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -33,6 +34,8 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnC
     private Animation exitAnim ;
     private HashMap<Integer,AbcBean> viewMap=new HashMap<Integer,AbcBean>();
     private Boolean isUpCase=false;
+    private String webInputId;
+    private WebView mWebView;
 
 
     public AbcVirtualKeyboardView(Context context) {
@@ -153,6 +156,9 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnC
            String s = textAmount.getText().toString().trim();
            textAmount.setText(s+(isUpCase? bean.getmValue().toUpperCase():bean.getmValue().toLowerCase()));
            textAmount.setSelection( textAmount.getText().toString().trim().length());
+       }else {
+           AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+           bridge.addInfoToJs(webInputId,(isUpCase? bean.getmValue().toUpperCase():bean.getmValue().toLowerCase()));
        }
     }
 
@@ -208,13 +214,19 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnC
 //    }
 
     private void deleteOneChar(){
-        String amount = textAmount.getText().toString().trim();
-        if (amount.length() > 0) {
-            amount = amount.substring(0, amount.length() - 1);
-            textAmount.setText(amount);
-            Editable ea = textAmount.getText();
-            textAmount.setSelection(ea.length());
+        if (textAmount!=null){
+            String amount = textAmount.getText().toString().trim();
+            if (amount.length() > 0) {
+                amount = amount.substring(0, amount.length() - 1);
+                textAmount.setText(amount);
+                Editable ea = textAmount.getText();
+                textAmount.setSelection(ea.length());
+            }
+        }else if (mWebView!=null){
+            AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+            bridge.delInfoToJs(webInputId);
         }
+
     }
 
     @Override
@@ -225,5 +237,10 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnC
                 break;
         }
 
+    }
+
+    public void initWebId(String inputId, WebView webView) {
+        webInputId = inputId;
+        this.mWebView = webView;
     }
 }

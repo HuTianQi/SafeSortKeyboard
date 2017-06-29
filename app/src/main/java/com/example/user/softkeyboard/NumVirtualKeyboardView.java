@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -165,4 +166,8 @@ public class NumVirtualKeyboardView extends RelativeLayout {
             }
         }
     };
+
+    public void initWebId(String inputId, WebView mWebView) {
+
+    }
 }

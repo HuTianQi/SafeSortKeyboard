@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -124,7 +125,10 @@ public class PopwinSoftkeyboard extends PopupWindow  {
         return this;
     }
 
-    private void show(View parent) {
+
+
+
+    public void show(View parent) {
         if (isShowing()){
             return;
         }else {
@@ -198,6 +202,68 @@ public class PopwinSoftkeyboard extends PopupWindow  {
         });
     }
 
+    //初始化网络版的键盘
+    public PopwinSoftkeyboard initWebModeKeyboard(String inputId, WebView mWebView) {
+        //初始化数字键盘
+        vkb_num_view = (NumVirtualKeyboardView) popView.findViewById(R.id.vkb_num_view);
+        vkb_num_view.initWebId(inputId,mWebView);
+        vkb_num_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_num_view.getAbc_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_num_view.disMiss();
+                vkb_abc_view.show();
 
+            }
+        });
+
+        //初始化特殊字符键盘
+        vkb_char_view = (CharsVirtualKeyboardView) popView.findViewById(R.id.vkb_char_view);
+        vkb_char_view.initWebId(inputId,mWebView);
+        vkb_char_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_char_view.getAbc_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_char_view.disMiss();
+                vkb_abc_view.show();
+
+            }
+        });
+
+        //初始化字母键盘
+        vkb_abc_view = (AbcVirtualKeyboardView) popView.findViewById(R.id.vkb_abc_view);
+        vkb_abc_view.initWebId(inputId,mWebView);
+        vkb_abc_view.getImgBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        vkb_abc_view.getNum_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_abc_view.disMiss();
+                vkb_num_view.show();
+            }
+        });
+        vkb_abc_view.getChar_view().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vkb_abc_view.disMiss();
+                vkb_char_view.show();
+            }
+        });
+        return this;
+    }
 
 }

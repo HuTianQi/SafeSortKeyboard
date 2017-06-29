@@ -1,0 +1,378 @@
+/* css reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  margin:0;
+  padding:0;
+}
+html,body {
+  margin:0;
+  padding:0;
+  height: 100%;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address,caption,cite,code,dfn,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+html,
+body {
+  min-height: 100%;
+  min-width: 100%;
+  font-family: "Microsoft YaHei", "微软雅黑", "宋体", Arial, sans-serif;
+  background: #ffffff;
+  color: #ababab;
+  font-size: 14px;
+}
+
+a {
+  color: #20376d;
+  text-decoration: none;
+}
+
+input::-webkit-clear-button,
+input::-ms-clear,
+input::-ms-reveal{
+  display:none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color:#333;
+}
+
+.blue {
+  color: #20376d;
+}
+
+.container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.clr{
+  clear: both;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.container .wrapper {
+  padding: 20px 0px 0px;
+  width: 90%;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+.container .wrapper.simple {
+  padding: 80px 0px 0px;
+}
+
+.headIcon {
+  width: 80px;
+  height: 80px;
+  background: #545C7A;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 60px;
+  line-height: 80px;
+}
+
+.infoIcon {
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  border-radius: 50%;
+  border: 2px solid #FF8435;
+  color: #FF8435;
+  font-size: 14px;
+  line-height: 15px;
+  text-indent: 5px;
+  margin-right: 5px;
+}
+
+.succIcon {
+  width: 90px;
+  height: 90px;
+  background: transparent;
+  border: 5px solid #545C7A;
+  border-radius: 50%;
+  color: #545C7A;
+  font-size: 60px;
+  line-height: 90px;
+}
+
+.icon-mobile:before {
+  content: "\f10b";
+  font-size:40px;
+}
+
+.icon-lock:before {
+  content: "\f023";
+  font-size:30px;
+}
+
+.icon-close-circle:before {
+  content: "\f057";
+  font-size: 17px;
+}
+
+.icon-eye_on:before {
+  content: "\f06e";
+}
+
+.icon-eye_off:before {
+  content: "\f070";
+}
+
+button.button {
+  width: 100%;
+  height: 50px;
+  background: #20376D;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  margin-top: 50px;
+  border-radius: 5px;
+  font-size: 17px;
+  cursor:pointer;
+}
+
+button.button a {
+  color: #ffffff;
+}
+
+button.button.code {
+  position: relative;
+  top: 14px;
+  width: 130px;
+  height: 40px;
+  margin: 0px 5px 0px;
+  background: #545C7A;
+  font-size: 15px;
+}
+
+.info {
+  position: relative;
+  font-size: 17px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.info .left {
+  position: absolute;
+  left: 0px;
+}
+
+.info .right {
+  position: absolute;
+  right: 0px;
+}
+
+.info p {
+  text-align: left;
+  color: #000000;
+  margin: 25px 0px;
+}
+
+.warning {
+  margin-top: 5px;
+  text-align: left;
+  color: #FF8435;
+}
+
+.inputRow {
+  position: relative;
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin: 30px auto 0px;
+  width: 100%;
+  height: 42px;
+}
+
+.inputRow input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 17px;
+  min-width: 60px;
+  color: #ADADB6;
+}
+
+.inputRow input::-webkit-input-placeholder {
+  color: #d5d5d5;
+  font-size: 15px;
+}
+.inputRow input:-moz-placeholder {
+  color:#d5d5d5;
+  font-size: 15px;
+}
+.inputRow input::-moz-placeholder {
+  color:#d5d5d5;
+  font-size: 15px;
+}
+.inputRow input:-ms-input-placeholder {
+  color:#d5d5d5;
+  font-size: 15px;
+}
+
+.inputRow .icon-holder {
+  padding-left: 40px;
+}
+
+.inputRow .icon {
+  position: absolute;
+  left: 0px;
+  display: block;
+  margin: 0px 10px 0px 10px;
+  width: 20px;
+  height: 40px;
+  color: #7F7F7F;
+}
+
+.inputRow .text-holder {
+  padding-left: 110px;
+}
+
+.inputRow .text {
+  position: absolute;
+  left: 0px;
+  display: block;
+  margin: 0px 10px 0px 20px;
+  width: 80px;
+  height: 22px;
+  color: #000000;
+  font-size: 15px;
+  top: 8px;
+}
+
+.inputRow .border {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 0;
+  height: 10px;
+  border-left: 2px solid #cfcfcf;
+  border-right: 2px solid #cfcfcf;
+  border-bottom: 2px solid #cfcfcf;
+  pointer-events: none;
+}
+
+.inputRow .error {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  cursor: default;
+  right: 3px;
+  bottom: 12px;
+  color: #FF8435;
+}
+
+.inputRow .attached {
+  position: relative;
+  left: 0px;
+  bottom: 20px;
+}
+
+.inputRow.error .border {
+  border-left: 2px solid #FF8435;
+  border-right: 2px solid #FF8435;
+  border-bottom: 2px solid #FF8435;
+}
+
+.inputRow.error .error {
+  display: block;
+}
+
+.inputRow.error .error.offset {
+  left: 20px;
+  bottom: -25px;
+}
+
+.inputRow input:focus ~ .border {
+  border-left: 2px solid #20376D;
+  border-right: 2px solid #20376D;
+  border-bottom: 2px solid #20376D;
+}
+
+.inputRow input:focus ~ .text {
+  color: #20376D;
+}
+
+.inputRow .attached .icon-place {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  color: #7F7F7F;
+  text-align: left;
+  bottom: -30px;
+  margin: 0px 6px;
+}
+
+.inputRow .attached .icon-place div {
+  display: inline-block;
+}
+
+.inputRow .attached .icon-place .icon-close-circle {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.inputRow .attached .icon-place .icon-close-circle-hidden {
+  cursor: pointer;
+    display: none;
+}
+
+.inputRow .attached .icon-place .icon-eye_on,
+.inputRow .attached .icon-place .icon-eye_off {
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+    float: right;
+}
+
+.inputRow input:focus ~ .attached .icon-place .icon-close-circle {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
