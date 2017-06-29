@@ -37,6 +37,8 @@ public class CharsVirtualKeyboardView extends RelativeLayout {
     private EditText textAmount;
     private Animation enterAnim;
     private Animation exitAnim;
+    private String webInputId;
+    private WebView mWebView;
 
     public CharsVirtualKeyboardView(Context context) {
         this(context, null);
@@ -126,7 +128,7 @@ public class CharsVirtualKeyboardView extends RelativeLayout {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-
+            if (textAmount!=null) {
                 String amount = textAmount.getText().toString().trim();
                 amount = amount + valueList.get(position).get("name");
 
@@ -134,11 +136,20 @@ public class CharsVirtualKeyboardView extends RelativeLayout {
 
                 Editable ea = textAmount.getText();
                 textAmount.setSelection(ea.length());
+            }else if (mWebView!=null){
+                AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+                bridge.addInfoToJs(webInputId,valueList.get(position).get("name"));
+            }
 
         }
     };
 
-    public void initWebId(String inputId, WebView mWebView) {
+    public void initWebId(String inputId, WebView webView) {
+        webInputId = inputId;
+        mWebView = webView;
+        enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in);
+        exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out);
 
+        gridView.setOnItemClickListener(onItemClickListener);
     }
 }

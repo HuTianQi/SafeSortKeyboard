@@ -242,5 +242,7 @@ public class AbcVirtualKeyboardView extends RelativeLayout implements   View.OnC
     public void initWebId(String inputId, WebView webView) {
         webInputId = inputId;
         this.mWebView = webView;
+        enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in);
+        exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out);
     }
 }

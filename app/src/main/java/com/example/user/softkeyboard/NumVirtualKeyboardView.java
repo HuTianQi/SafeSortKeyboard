@@ -37,6 +37,8 @@ public class NumVirtualKeyboardView extends RelativeLayout {
     private EditText textAmount;
     private Animation enterAnim;
     private Animation exitAnim;
+    private String webInputId;
+    private WebView mWebView;
 
     public NumVirtualKeyboardView(Context context) {
         this(context, null);
@@ -133,41 +135,63 @@ public class NumVirtualKeyboardView extends RelativeLayout {
 
             if (position < 11 && position != 9) {    //点击0~9按钮
 
-                String amount = textAmount.getText().toString().trim();
-                amount = amount + valueList.get(position).get("name");
+                if (textAmount!=null){
+                    String amount = textAmount.getText().toString().trim();
+                    amount = amount + valueList.get(position).get("name");
 
-                textAmount.setText(amount);
+                    textAmount.setText(amount);
 
-                Editable ea = textAmount.getText();
-                textAmount.setSelection(ea.length());
+                    Editable ea = textAmount.getText();
+                    textAmount.setSelection(ea.length());
+                }else if (mWebView!=null){
+                    AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+                    bridge.addInfoToJs(webInputId,valueList.get(position).get("name"));
+                }
+
             } else {
 
                 if (position == 9) {      //点击.
-                    String amount = textAmount.getText().toString().trim();
-                    if (!amount.contains(".")) {
-                        amount = amount + valueList.get(position).get("name");
-                        textAmount.setText(amount);
+                     if (textAmount!=null){
+                        String amount = textAmount.getText().toString().trim();
+                        if (!amount.contains(".")) {
+                            amount = amount + valueList.get(position).get("name");
+                            textAmount.setText(amount);
 
-                        Editable ea = textAmount.getText();
-                        textAmount.setSelection(ea.length());
+                            Editable ea = textAmount.getText();
+                            textAmount.setSelection(ea.length());
+                        }
+                    }else if (mWebView!=null){
+                        AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+                        bridge.addInfoToJs(webInputId,valueList.get(position).get("name"));
                     }
                 }
 
-                if (position == 11) {      //点击退格键
-                    String amount = textAmount.getText().toString().trim();
-                    if (amount.length() > 0) {
-                        amount = amount.substring(0, amount.length() - 1);
-                        textAmount.setText(amount);
+                if (position == 11) {
+                    //点击退格键
+                    if (textAmount!=null) {
+                        String amount = textAmount.getText().toString().trim();
+                        if (amount.length() > 0) {
+                            amount = amount.substring(0, amount.length() - 1);
+                            textAmount.setText(amount);
 
-                        Editable ea = textAmount.getText();
-                        textAmount.setSelection(ea.length());
+                            Editable ea = textAmount.getText();
+                            textAmount.setSelection(ea.length());
+                        }
+                    }else if (mWebView!=null){
+                        AndroidBridge bridge = (AndroidBridge) mWebView.getTag();
+                        bridge.delInfoToJs(webInputId);
                     }
                 }
             }
         }
     };
 
-    public void initWebId(String inputId, WebView mWebView) {
+    public void initWebId(String inputId, WebView webView) {
+        webInputId = inputId;
+        mWebView = webView;
+        enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in);
+        exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out);
 
+        gridView.setOnItemClickListener(onItemClickListener);
     }
 }
