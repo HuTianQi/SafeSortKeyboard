@@ -26,6 +26,10 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,11 +83,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view,url,favicon);
+                    addLoacalJS();
                 }
                 @Override
                 public void onPageFinished(WebView view, String url) {
 
                     super.onPageFinished(view,url);
+
+                    webView.loadUrl("javascript:load()");
                 }
 
                 @Override
@@ -126,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            localHtml();
-
+//            localHtml();
+        localHtmlWithoutJS();
         }
 
     /**
-     * 显示本地网页文件
+     * 显示本地网页文件,html中包含js
      */
     private void localHtml() {
         try {
@@ -142,7 +149,47 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
+    private void localHtmlWithoutJS() {
+        try {
+            // 本地文件处理(如果文件名中有空格需要用+来替代)
+            webView.loadUrl("file:///android_asset/login2.html");
+//            webView.loadUrl("file:///android_asset/test.html");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
+
+    }
+
+    private void addLoacalJS(){
+        //获取js文本
+        InputStream mIs = null;
+        String wholeJS="";
+        try {
+            mIs = getResources().getAssets().open("login.js");
+            if(mIs != null){
+                byte buff[] = new byte[1024];
+                ByteArrayOutputStream fromFile = new ByteArrayOutputStream();
+                FileOutputStream out = null;
+                do {
+                    int numread = 0;
+                    numread = mIs.read(buff);
+                    if (numread <= 0) {
+                        break;
+                    }
+                    fromFile.write(buff, 0, numread);
+                } while (true);
+                wholeJS = fromFile.toString();
+            }else{
+                Toast.makeText(MainActivity.this, "js加载失败", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //webview添加读取的js
+        webView.loadUrl("javascript:" + wholeJS);
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

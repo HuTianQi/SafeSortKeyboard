@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8" />
+        <title>登录</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="login.css"  />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+	<body onload="load()">
+	<div class="container">
+		<section>
+			<div class="wrapper">
+				<form id="loginForm" action="/iam_server/login" autocomplete="on" method="post" >
+
+					<div id="phoneNumberDiv" class="inputRow" >
+						<input id="phoneNumberInput" name="phoneNumber" value="" class="icon-holder"
+							type="text" placeholder="请输入手机号" maxlength="11"
+							   onfocus="this.blur()"/>
+
+						<div id="phoneErrorDiv" class="error offset"><span></span></div>
+						<div class="border"></div>
+					</div>
+					<div id="passwordDiv" class="inputRow disable">
+						<input id="passwordInput"  onfocus="this.blur()" name="password" class="icon-holder" type="password" maxlength="12" placeholder="请输入6-12位密码"></input>
+						<div id="passwordErrorDiv" class="error offset"><span></span></div>
+						<div class="border"></div>
+					</div>
+
+					<button id="loginBtn" class="button" >登录</button>
+					</br>
+					</br>
+
+					<div class="info" >
+						<div class="left">
+							还没有账号？<a href="signup">立即注册</a>
+						</div>
+						<div class="right">
+							<a href="forgetpwd">忘记密码</a>
+						</div>
+					</div>
+					</br>
+
+				</form>
+
+			</div>
+		</section>
+	</div>
+</body>
+
+
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+		
+		init();
+
+		$("#loginBtn").click(function(){
+			if (!checkPhoneNumber()) {
+				return false;
+			}
+
+			if (!checkPassword()) {
+				return false;
+			}
+			return true;
+		});
+
+		$("#test").click(function(){
+			alert("aaa");
+			client.callJava();
+			return true;
+		});
+
+	}); 
+  function load() {
+              var phoneNum = document.getElementById("phoneNumberInput");
+              phoneNum.onclick = function() {
+                client.callJava("phoneNumberInput");
+              }
+              var pwd = document.getElementById("passwordInput");
+              pwd.onclick = function() {
+                client.callJava("passwordInput");
+              }
+        }
+</script>
+
+</html>
